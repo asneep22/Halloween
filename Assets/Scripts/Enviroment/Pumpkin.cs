@@ -38,8 +38,6 @@ public class Pumpkin : MonoBehaviour
             {
                 _currentTime = 0;
             }
-
-            Debug.Log(_currentTime);
         }
     }
 }

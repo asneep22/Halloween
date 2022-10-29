@@ -41,6 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: IgnoreLight
-    uniqueID: 3589201075
+  - name: UI
+    uniqueID: 4278068005
     locked: 0
