@@ -162,7 +162,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3603607278072322242}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 3.69}
+  m_LocalPosition: {x: 0, y: 0, z: 5.38}
   m_LocalScale: {x: 0.0019726881, y: 0.001674386, z: 0.0010509009}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -307,16 +307,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b824ec158f50cd741a5f7a62e635803c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerMovement: {fileID: 0}
   _movementPoints: {fileID: 0}
+  _manSprite: {fileID: 7313945400159151068}
   _delayTimeOnCaroling: 1
-  _delayTimeOnRelaxion: 5
+  _delayTimeOnRelaxion: 15
   _maximumCarrolingChance: 45
   _text: {fileID: 7929269863486061942}
-  _sayTexts:
-  - "\u0422\u0432\u043E\u0439 \u043A\u043E\u0441\u0442\u044E\u043C \u043D\u0435 \u043F\u043E\u0445\u043E\u0436
-    \u043D\u0430 \u043F\u0440\u0437\u0440\u0430\u043A\u0430"
-  - "\u041C\u043E\u0439 \u043A\u043E\u0441\u0442\u044E\u043C \u043B\u0443\u0447\u0448\u0435"
-  _sayTime: 1.2
   _textAnimation:
     serializedVersion: 2
     m_Curve:
@@ -341,6 +338,19 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _sayTexts:
+  - "\u0422\u0432\u043E\u0439 \u043A\u043E\u0441\u0442\u044E\u043C \u043D\u0435 \u043F\u043E\u0445\u043E\u0436
+    \u043D\u0430 \u043F\u0440\u0437\u0440\u0430\u043A\u0430"
+  - "\u041C\u043E\u0439 \u043A\u043E\u0441\u0442\u044E\u043C \u043B\u0443\u0447\u0448\u0435"
+  _scareTexts:
+  - "\u0411\u0430\u043D\u043A\u0430 \u0443\u0431\u0435\u0433\u0430\u0435\u0442!!"
+  - "\u0410"
+  _sayTime: 1.2
+  _scareTime: 3
+  _scareSpeed: 6.5
+  _runAwayFromFearMinMaxDistance: {x: 10, y: 10}
+  _fearPoolName: FearOfMan
+  _dropFearsCounMinMax: {x: 1, y: 3}
   _startCalculationPoint: 58
 --- !u!95 &6824784673516181452
 Animator:
@@ -485,7 +495,7 @@ BoxCollider2D:
   m_Offset: {x: 0.00036665797, y: -0.017383028}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 0.16, y: 0.16}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5

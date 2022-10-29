@@ -16,7 +16,7 @@ public class PlayerItemUser : MonoBehaviour
     [SerializeField] AnimationCurve _hintScale;
 
     private bool _isItemPlaceFree = true;
-    public IActivatable _IActivatableItem
+    public IActivatable IActivatableItem
     {
         get;
         set;
@@ -36,7 +36,7 @@ public class PlayerItemUser : MonoBehaviour
         if (_isItemPlaceFree)
         {
             item.transform.position = _pickUpPoint.position;
-            _IActivatableItem = item.TryGetComponent(out IActivatable Iactivatable) ? Iactivatable : null;
+            IActivatableItem = item.TryGetComponent(out IActivatable Iactivatable) ? Iactivatable : null;
             item.SetParent(_pickUpPoint);
 
             _isItemPlaceFree = false;
@@ -53,7 +53,7 @@ public class PlayerItemUser : MonoBehaviour
 
     public void Activate()
     {
-        _IActivatableItem.TryActivate();
+        IActivatableItem.TryActivate();
     }
 
     public void ShowHint()

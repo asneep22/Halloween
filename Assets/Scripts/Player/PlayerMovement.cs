@@ -6,11 +6,30 @@ public class PlayerMovement : MonoBehaviour
     private Transform _transform;
     private float _startScaleByX;
 
+    [Header("Собранные страхи")]
+    [SerializeField] private int _fearsCount;
+
+    public int FearsCount
+    {
+        get => _fearsCount;
+        set
+        {
+            UIManager.Instance.FearsCount.text = $"{value}";
+
+            if (value <= 0)
+            {
+                Debug.Log("Lose");
+                return;
+            }
+
+            _fearsCount = value;
+        }
+    }
+
     [Header("Ускорение")]
     [SerializeField] private AnimationCurve _speedByTime;
     private Vector2 _movementVector;
     private float _currentTime;
-
 
     public Transform Transform
     {
@@ -48,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #region movement
-
     private void TryMove()
     {
         try
@@ -65,7 +83,6 @@ public class PlayerMovement : MonoBehaviour
         }
        
     }
-
     private float GetUpdatedCurrentTime()
     {
         if (HorizontalMovement != 0 || VerticalMovement != 0)
@@ -96,7 +113,6 @@ public class PlayerMovement : MonoBehaviour
     {
         CanMove = true;
     }
-    #endregion
 
     private void TurnToMovementDirection()
     {
@@ -107,4 +123,6 @@ public class PlayerMovement : MonoBehaviour
             _transform.localScale = new(newScaleByX, _transform.localScale.y, _transform.localScale.z);
         }
     }
+
+    #endregion
 }

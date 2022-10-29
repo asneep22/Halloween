@@ -369,13 +369,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f88206650ff8fd48b1ad6cd0ebea612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _boxCollider2D: {fileID: 6184942792533372007}
   _itemUser: {fileID: 0}
   _poolName: Pumpkin2
-  _activateTime: 3
-  _fearColliderActiveTime: 0
+  _activateTime: 1.5
+  _fearColliderActiveTime: 0.1
   _fearCollider: {fileID: 1042305264155140270}
-  _particlesOnCoundownPoolName: OrbitalSmall
-  _particlesOnActivatePoolName: 
+  _scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.011551791
+      outSlope: 0.011551791
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.2
+      value: 0.05
+      inSlope: 0.0027215388
+      outSlope: 0.0027215388
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.43333343
+    - serializedVersion: 3
+      time: 0.4
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _particlesOnActivatePoolName: Fear
 --- !u!61 &6184942792533372007
 BoxCollider2D:
   m_ObjectHideFlags: 0

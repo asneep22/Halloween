@@ -13,5 +13,10 @@ public class ManTrigger : MonoBehaviour
         {
             _man.SayRandom();
         }
+
+        if (collision.TryGetComponent(out FearTrigger fearTrigger))
+        {
+            _man.GetScare();
+        }
     }
 }

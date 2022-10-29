@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class ActiveItem : MonoBehaviour
 {
-    private BoxCollider2D _boxCollider2D;
+    [SerializeField] private BoxCollider2D _boxCollider2D;
     [SerializeField] private PlayerItemUser _itemUser;
 
     public bool IsPlayerInThePickUpZone
@@ -21,7 +21,6 @@ public class ActiveItem : MonoBehaviour
 
     private void Start()
     {
-        _boxCollider2D = GetComponent<BoxCollider2D>();
         _boxCollider2D.isTrigger = true;
     }
 

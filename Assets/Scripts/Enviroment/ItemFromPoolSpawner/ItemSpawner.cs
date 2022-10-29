@@ -30,6 +30,11 @@ public class ItemSpawner : MonoBehaviour
         poolObjecTransform.localPosition = transform.localPosition;
         poolObjecTransform.localScale = _scale;
         SpawedGameObject = poolObjecTransform.gameObject;
+
+        if (poolObjecTransform.TryGetComponent(out ActiveItem activeItem))
+        {
+            activeItem.IsDisactive = true;
+        }
     }
 
     private IEnumerator RespawnObject()

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ad40add42ecce646952aaa9475056c8, type: 3}
-  m_Name: OrbitalSmall
+  m_Name: Zombie
   m_EditorClassIdentifier: 
-  _name: OrbitalSmall
-  _template: {fileID: 2740132212641804544, guid: f0f9a1a052c999d4c8ee5aa5ae90dfe6, type: 3}
+  _name: Zombie
+  _template: {fileID: 6659794002959254286, guid: af4364859cd3f554888e70cc32663165, type: 3}
   _defaultSize: 5
   _maxSize: -1
   _incrementalInstanceNames: 0

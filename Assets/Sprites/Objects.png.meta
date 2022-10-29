@@ -367,6 +367,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: George
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf1e05d237d88c842908d9f3be56a0a0
+      internalID: -54549219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -383,6 +404,7 @@ TextureImporter:
       Pumpkin: -2127355880
       PumpkinLing: -1704410341
       Bush2: 854698248
+      George: -54549219
       Objects_0: -826928759
       SkullNotFull: 696270653
       Pumpkin2: -2069756761

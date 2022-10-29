@@ -111,6 +111,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5036580d26dfb49831935982f8728b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _boxCollider2D: {fileID: 6182480660760158138}
+  _itemUser: {fileID: 0}
+  _poolName: Grave
+  _zombiePoolName: Zombie
+  _activateParticlesPoolName: PoofParticles
 --- !u!61 &6182480660760158138
 BoxCollider2D:
   m_ObjectHideFlags: 0
