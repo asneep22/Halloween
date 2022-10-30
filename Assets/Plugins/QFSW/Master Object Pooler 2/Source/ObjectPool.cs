@@ -64,6 +64,7 @@ namespace QFSW.MOP2
                     _objectParent = new GameObject($"{_name} Pool").transform;
                 }
 
+                _objectParent.transform.localPosition = Vector3.zero;
                 return _objectParent;
             }
         }

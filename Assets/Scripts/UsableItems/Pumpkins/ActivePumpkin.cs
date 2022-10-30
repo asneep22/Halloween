@@ -1,5 +1,6 @@
 using QFSW.MOP2;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ActivePumpkin : ActiveItem, IActivatable
@@ -36,6 +37,7 @@ public class ActivePumpkin : ActiveItem, IActivatable
             IsDisactive = false;
             StartChangeScale();
             StartCoroutine(Activate());
+            AudioPlayer.PlayRandom(transform, MasterObjectPooler.Instance.GetObjectComponent<AudioSource>(AudioSourcePoolName), StartActivateClips);
         }
         catch (System.Exception e)
         {
@@ -49,6 +51,7 @@ public class ActivePumpkin : ActiveItem, IActivatable
         yield return new WaitForSeconds(_activateTime - _fearColliderActiveTime);
         PlayActivateParticles();
         _fearCollider.enabled = true;
+        AudioPlayer.PlayRandom(transform, MasterObjectPooler.Instance.GetObjectComponent<AudioSource>(AudioSourcePoolName), ActivateClips);
         yield return new WaitForSeconds(_fearColliderActiveTime);
         _fearCollider.enabled = false;
         MasterObjectPooler.Instance.Release(gameObject, _poolName);

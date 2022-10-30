@@ -14,6 +14,8 @@ public class PlayerItemUser : MonoBehaviour
     [Header("Анимация")]
     [SerializeField] private Transform _hintButton;
     [SerializeField] AnimationCurve _hintScale;
+    private float _scaleCurrentTime;
+    private IEnumerator _hint;
 
     private bool _isItemPlaceFree = true;
     public IActivatable IActivatableItem
@@ -56,13 +58,51 @@ public class PlayerItemUser : MonoBehaviour
         IActivatableItem.TryActivate();
     }
 
-    public void ShowHint()
+    public void StartShowHint()
     {
-        Debug.Log("HintToPickUp");
+        if (_hint != null)
+        {
+            StopCoroutine(_hint);
+        }
+
+        _hint = ShowHint();
+        StartCoroutine(_hint);
     }
 
-    public void HideHint()
+    public void StopShowHint()
     {
-        Debug.Log("HintToPickUp");
+        if (_hint != null)
+        {
+            StopCoroutine(_hint);
+        }
+
+        _hint = HideHint();
+        StartCoroutine(_hint);
+    }
+
+    private IEnumerator ShowHint()
+    {
+        float totalTime = _hintScale.keys[_hintScale.length - 1].time;
+
+        while (_scaleCurrentTime < totalTime)
+        {
+            yield return new WaitForSeconds(Time.deltaTime);
+            _scaleCurrentTime += Time.deltaTime;
+            float newScale = _hintScale.Evaluate(_scaleCurrentTime);
+            _hintButton.transform.localScale = new(newScale, newScale, newScale);
+        }
+    }
+
+    private IEnumerator HideHint()
+    {
+        float totalTime = 0;
+
+        while (totalTime < _scaleCurrentTime )
+        {
+            yield return new WaitForSeconds(Time.deltaTime);
+            _scaleCurrentTime -= Time.deltaTime;
+            float newScale = _hintScale.Evaluate(_scaleCurrentTime);
+            _hintButton.transform.localScale = new(newScale, newScale, newScale);
+        }
     }
 }

@@ -8,17 +8,18 @@ public class ActiveGrave : ActiveItem, IActivatable
     [SerializeField] private string _poolName;
     [SerializeField] private string _zombiePoolName;
     [SerializeField] private string _activateParticlesPoolName;
+    [SerializeField] private float _delayBeforeActivateParticels = 0.05f;
 
     private void Awake()
     {
         _transform = GetComponent<Transform>();
     }
+
     public void TryActivate()
     {
         try
         {
             SummonZombie();
-            PlayActivateParticles();
             MasterObjectPooler.Instance.Release(gameObject, _poolName);
             IsDisactive = false;
         }
@@ -31,21 +32,12 @@ public class ActiveGrave : ActiveItem, IActivatable
 
     private void SummonZombie()
     {
-        Transform zombieGo = MasterObjectPooler.Instance.GetObject(_zombiePoolName).transform;
-        zombieGo.SetParent(_transform.parent);
-        zombieGo.localPosition = new(_transform.localPosition.x, _transform.localPosition.y, 0);
-        if (zombieGo.TryGetComponent(out Zombie zombie))
-        {
-            Debug.Log(zombie);
-        }
+        AudioPlayer.PlayRandom(transform, MasterObjectPooler.Instance.GetObjectComponent<AudioSource>(AudioSourcePoolName), ActivateClips);
+        Zombie zombie = MasterObjectPooler.Instance.GetObjectComponent<Zombie>(_zombiePoolName);
+        zombie.transform.SetParent(_transform.parent);
+        zombie.transform.localPosition = new(_transform.localPosition.x, _transform.localPosition.y, 0);
 
-    }
-
-    private void PlayActivateParticles()
-    {
-        ParticleSystem fearParticles = MasterObjectPooler.Instance.GetObjectComponent<ParticleSystem>(_activateParticlesPoolName);
-        fearParticles.transform.position = _transform.position;
-        fearParticles.Play();
+        zombie.Active();
     }
 
 

@@ -34,7 +34,7 @@ namespace QFSW.MOP2
 
                     if (transform.parent == null)
                     {
-                        DontDestroyOnLoad(gameObject);
+/*                        DontDestroyOnLoad(gameObject);*/
                     }
                     else
                     {

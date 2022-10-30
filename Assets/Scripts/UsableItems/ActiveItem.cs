@@ -1,4 +1,4 @@
-using System.Collections;
+using QFSW.MOP2;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +7,27 @@ public class ActiveItem : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D _boxCollider2D;
     [SerializeField] private PlayerItemUser _itemUser;
+
+    [Header("Звуки")]
+    [SerializeField] private string _audioSourcePoolName;
+    [SerializeField] private List<AudioClip> _pickUpClips;
+    [SerializeField] private List<AudioClip> _startActivateClips;
+    [SerializeField] private List<AudioClip> _activateClips;
+
+    public List<AudioClip> StartActivateClips
+    {
+        get => _startActivateClips;
+    }
+
+    public List<AudioClip> ActivateClips
+    {
+        get => _activateClips;
+    }
+    public string AudioSourcePoolName
+    {
+        get => _audioSourcePoolName;
+    }
+  
 
     public bool IsPlayerInThePickUpZone
     {
@@ -30,6 +51,7 @@ public class ActiveItem : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
+                AudioPlayer.PlayRandom(transform, MasterObjectPooler.Instance.GetObjectComponent<AudioSource>(AudioSourcePoolName), _pickUpClips);
                 _itemUser.PickUp(transform);
                 _itemUser.ItemCollider = _boxCollider2D;
                 _boxCollider2D.enabled = false;
@@ -43,7 +65,7 @@ public class ActiveItem : MonoBehaviour
         {
             _itemUser = itemUser;
             IsPlayerInThePickUpZone = true;
-            itemUser.ShowHint();
+            itemUser.StartShowHint();
         }
     }
 
@@ -53,7 +75,7 @@ public class ActiveItem : MonoBehaviour
         {
             _itemUser = null;
             IsPlayerInThePickUpZone = false;
-            itemUser.HideHint();
+            itemUser.StopShowHint();
         }
     }
 }

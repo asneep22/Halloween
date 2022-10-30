@@ -17,7 +17,7 @@ public class Fear : MonoBehaviour
     [SerializeField] private float _distanceToPickUp;
     [SerializeField] private Vector2 _dropDistanceMinMax;
     [SerializeField] private Vector2 _waitTimeMinMax;
-    private IEnumerator _moveToPlayer;
+    private IEnumerator _moveTo;
 
     private void Awake()
     {
@@ -51,39 +51,43 @@ public class Fear : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
-        StartMoveToPlayer();
+        StartMoveTo(_player);
     }
 
-    private void StartMoveToPlayer()
+    public void StartMoveTo(Transform target)
     {
-        StopMovePlayer();
+        StopMove();
 
-        _moveToPlayer = MoveToPlayer();
-        StartCoroutine(_moveToPlayer);
+        _moveTo = MoveToPlayer(target);
+        StartCoroutine(_moveTo);
     }
 
-    private void StopMovePlayer()
+    private void StopMove()
     {
-        if (_moveToPlayer != null) 
+        if (_moveTo != null) 
         {
-            StopCoroutine(_moveToPlayer);
+            StopCoroutine(_moveTo);
         }
     }
 
-    private IEnumerator MoveToPlayer()
+    private IEnumerator MoveToPlayer(Transform target)
     {
-        float distance = Vector2.Distance(_transform.position, _player.position);
+        float distance = Vector2.Distance(_transform.position, target.position);
 
         while (distance > _distanceToPickUp)
         {
-            distance = Vector2.Distance(_transform.position, _player.position);
+            distance = Vector2.Distance(_transform.position, target.position);
 
-            Vector2 MoveToPlayer = new Vector2(_player.localPosition.x - _transform.localPosition.x,_player.localPosition.y - _transform.localPosition.y).normalized;
+            Vector2 MoveToPlayer = new Vector2(target.localPosition.x - _transform.localPosition.x, target.localPosition.y - _transform.localPosition.y).normalized;
             _transform.Translate(_speedOnPickUp * Time.fixedDeltaTime * MoveToPlayer);
             yield return new WaitForSeconds(.01f);
         }
 
-        _playerMovement.FearsCount++;
+        if (target == _player)
+        {
+            _playerMovement.FearsCount++;
+        }
+
         MasterObjectPooler.Instance.Release(gameObject, _poolName);
     }
 

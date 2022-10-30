@@ -40,6 +40,8 @@ public class Man : MonoBehaviour
     [SerializeField] [Min(.5f)] private float _scareTime;
     [SerializeField] [Min(1)] private float _scareSpeed;
     [SerializeField] private Vector2 _runAwayFromFearMinMaxDistance;
+    [SerializeField] private string _georgePoolName;
+    [SerializeField] private float _maxSpawnGeorgeChance = 0.3f;
     private IEnumerator _scare;
 
     [Header("Очки испуга")]
@@ -48,6 +50,29 @@ public class Man : MonoBehaviour
 
     [Header("Позиционирование")]
     [SerializeField] private float _startCalculationPoint;
+
+    [Header("Превращение")]
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private string _morphPartcles;
+    private Sprite _startSprite;
+
+    [Header("Звуки")]
+    [SerializeField] private string _audioSourcePoolName = "AudioSource";
+    [SerializeField] private List<AudioClip> _scareClips;
+    [SerializeField] private List<AudioClip> _morphClips;
+
+    public SpriteRenderer SpriteRenderer
+    {
+        get => _spriteRenderer;
+    }
+    public string MorphParticles
+    {
+        get => _morphPartcles;
+    }
+    public Sprite StartSprite
+    {
+        get => _startSprite;
+    }
 
     public Vector3 Target
     {
@@ -63,6 +88,7 @@ public class Man : MonoBehaviour
         _navMeshAgent.updateRotation = false;
         _startSpeed = _navMeshAgent.speed;
         _startScale = _manSprite.localScale;
+        _startSprite = _spriteRenderer.sprite;
         BuildNewRoot();
     }
 
@@ -78,7 +104,7 @@ public class Man : MonoBehaviour
         if (_isNotDelay && Target != Vector3.zero)
         {
             bool isFinishedRoute = GetDistanceToTarget() <= _navMeshAgent.stoppingDistance;
-            _navMeshAgent.baseOffset = _startCalculationPoint + transform.localPosition.y;
+            _navMeshAgent.baseOffset = _startCalculationPoint - transform.position.y;
             _animator.SetBool("isMove", true);
             TurnToMovementDirection();
 
@@ -171,8 +197,10 @@ public class Man : MonoBehaviour
     {
         DropFears();
         StartScare();
+        SpawnGeorge();
         ScareSayRandom();
         BuildNewScarePosition();
+        PlayScareSound();
         _navMeshAgent.speed = _scareSpeed;
     }
 
@@ -192,6 +220,19 @@ public class Man : MonoBehaviour
         _navMeshAgent.SetDestination(Target);
         _isNotDelay = true;
 
+    }
+
+    private void SpawnGeorge()
+    {
+        float randomChance = Random.Range(0, 100);
+
+        if (randomChance <= _maxSpawnGeorgeChance)
+        {
+            George george = MasterObjectPooler.Instance.GetObjectComponent<George>(_georgePoolName);
+            george.transform.position = _transform.position;
+            george.PlayerMovement = _playerMovement;
+            george.Active();
+        }
     }
 
     private void StartScare()
@@ -281,6 +322,20 @@ public class Man : MonoBehaviour
         }
 
         _isSay = false;
+    }
+
+    #endregion
+
+    #region sounds
+
+    public void PlayScareSound()
+    {
+        AudioPlayer.PlayRandom(transform, MasterObjectPooler.Instance.GetObjectComponent<AudioSource>(_audioSourcePoolName), _scareClips);
+    }
+
+    public void PlayMorphSound()
+    {
+        AudioPlayer.PlayRandom(transform, MasterObjectPooler.Instance.GetObjectComponent<AudioSource>(_audioSourcePoolName), _morphClips);
     }
 
     #endregion
