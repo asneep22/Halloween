@@ -45,11 +45,12 @@ public class PlayerMovement : MonoBehaviour
 
                 if (value <= 0)
                 {
+                    UIManager.Instance.FearsCount.text = $"{0}";
                     Lose();
                     return;
                 } else if (value >= _maxFearsCount)
-                {   
-
+                {
+                    UIManager.Instance.FearsCount.text = $"{_maxFearsCount}";
                     Win();
                     return;
                 }
