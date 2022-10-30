@@ -18,7 +18,6 @@ public class ActiveItem : MonoBehaviour
     {
         get => _startActivateClips;
     }
-
     public List<AudioClip> ActivateClips
     {
         get => _activateClips;
@@ -27,8 +26,6 @@ public class ActiveItem : MonoBehaviour
     {
         get => _audioSourcePoolName;
     }
-  
-
     public bool IsPlayerInThePickUpZone
     {
         get;
@@ -65,7 +62,10 @@ public class ActiveItem : MonoBehaviour
         {
             _itemUser = itemUser;
             IsPlayerInThePickUpZone = true;
-            itemUser.StartShowHint();
+            if (IsDisactive)
+            {
+                itemUser.StartShowHint();
+            }
         }
     }
 
@@ -75,7 +75,10 @@ public class ActiveItem : MonoBehaviour
         {
             _itemUser = null;
             IsPlayerInThePickUpZone = false;
-            itemUser.StopShowHint();
+            if (IsDisactive)
+            {
+                itemUser.StopShowHint();
+            }
         }
     }
 }

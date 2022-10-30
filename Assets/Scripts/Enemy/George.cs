@@ -59,7 +59,8 @@ public class George : MonoBehaviour
                 if (_currentTime < _stelFearesTimeForOne)
                 {
                     _currentTime += Time.deltaTime;
-                } else
+                }
+                else
                 {
                     Fear _fear = MasterObjectPooler.Instance.GetObjectComponent<Fear>(_fearsPoolName);
                     _fear.transform.position = PlayerMovement.transform.position;

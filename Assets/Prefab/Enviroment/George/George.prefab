@@ -239,7 +239,7 @@ MonoBehaviour:
   _poolName: George
   _fearsPoolName: FearOfMan
   _lifeTime: 6
-  _distanceToStealFears: 7
+  _distanceToStealFears: 4
   _stelFearesTimeForOne: 0.2
   _moveSpeed: 7
   _activeParticelsPoolName: PoofParticles

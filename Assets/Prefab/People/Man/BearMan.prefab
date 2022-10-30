@@ -349,7 +349,7 @@ MonoBehaviour:
   _scareTexts:
   - "\u0411\u0430\u043D\u043A\u0430 \u0443\u0431\u0435\u0433\u0430\u0435\u0442!!"
   - "\u0410"
-  _sayTime: 1.2
+  _sayTime: 2.5
   _scareTime: 3
   _scareSpeed: 6.5
   _runAwayFromFearMinMaxDistance: {x: 10, y: 10}

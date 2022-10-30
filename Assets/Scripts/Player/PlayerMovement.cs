@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject _secondStage;
     [SerializeField] private GameObject _thirdStage;
     private int _currentStage;
+    private int _needableCountToNextStage;
     public int CurrentStage
     {
         get => _currentStage;
@@ -42,8 +43,6 @@ public class PlayerMovement : MonoBehaviour
                     AudioPlayer.PlayRandom(transform, MasterObjectPooler.Instance.GetObjectComponent<AudioSource>(_audioSourcePoolName), _dropFearsClips);
                 }
 
-                UIManager.Instance.FearsCount.text = $"{value}";
-
                 if (value <= 0)
                 {
                     Lose();
@@ -57,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
                 _fearsCount = value;
                 TryUpdateStage();
+                UIManager.Instance.FearsCount.text = $"{_fearsCount}/{_needableCountToNextStage}";
             }
         }
     }
@@ -94,7 +94,8 @@ public class PlayerMovement : MonoBehaviour
 
         SpeedCurve = _speedByTime;
         CanMove = true;
-        _currentStage = 0;
+        EnableStageOne();
+        FearsCount = _fearsCount;
     }
 
     public void FixedUpdate()
@@ -184,11 +185,11 @@ public class PlayerMovement : MonoBehaviour
     {
         try
         {
-            if (_fearsCount > _needableFearsToThirdStage && _currentStage != 2)
+            if (_fearsCount >= _needableFearsToThirdStage && _currentStage != 2)
             {
                 EnableStageThree();
             }
-            else if (_fearsCount > _needableFearsToSecondStage && _fearsCount < _needableFearsToThirdStage && _currentStage != 1)
+            else if (_fearsCount >= _needableFearsToSecondStage && _fearsCount < _needableFearsToThirdStage && _currentStage != 1)
             {
                 EnableStageTwo();
             }
@@ -212,6 +213,7 @@ public class PlayerMovement : MonoBehaviour
         _secondStage.SetActive(false);
         _firstStage.enabled = true;
         _currentStage = 0;
+        _needableCountToNextStage = _needableFearsToSecondStage;
     }
 
     private void EnableStageTwo()
@@ -221,6 +223,7 @@ public class PlayerMovement : MonoBehaviour
         _secondStage.SetActive(true);
         _firstStage.enabled = false;
         _currentStage = 1;
+        _needableCountToNextStage = _needableFearsToThirdStage;
     }
 
     private void EnableStageThree()
@@ -230,6 +233,7 @@ public class PlayerMovement : MonoBehaviour
         _secondStage.SetActive(false);
         _secondStage.SetActive(false);
         _currentStage = 2;
+        _needableCountToNextStage = _maxFearsCount;
     }
 
     private void PlayChangeStageParticles()

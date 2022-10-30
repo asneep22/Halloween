@@ -29,7 +29,11 @@ public class MainCamera : MonoBehaviour
             Debug.LogException(e, this);
             throw;
         }
+    }
 
+    public void SetPositionTo(Vector2 newPosition)
+    {
+        transform.position = new Vector3(newPosition.x + _divine.x, newPosition.y + +_divine.y, transform.position.z);
     }
 
 

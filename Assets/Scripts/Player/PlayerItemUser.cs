@@ -56,6 +56,7 @@ public class PlayerItemUser : MonoBehaviour
     public void Activate()
     {
         IActivatableItem.TryActivate();
+        StopShowHint();
     }
 
     public void StartShowHint()

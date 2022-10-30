@@ -6,7 +6,9 @@ using System.Collections;
 public class ItemSpawner : MonoBehaviour
 {
     [SerializeField] private string _poolName;
+    [SerializeField] private string _spawnParticlesPoolName = "PoofParticles";
     [SerializeField] private Vector3 _scale;
+
     public GameObject SpawedGameObject
     {
         get;
@@ -30,6 +32,10 @@ public class ItemSpawner : MonoBehaviour
         poolObjecTransform.localPosition = transform.localPosition;
         poolObjecTransform.localScale = _scale;
         SpawedGameObject = poolObjecTransform.gameObject;
+
+        ParticleSystem _particles = MasterObjectPooler.Instance.GetObjectComponent<ParticleSystem>(_spawnParticlesPoolName);
+        _particles.transform.position = transform.position;
+        _particles.Play();
 
         if (poolObjecTransform.TryGetComponent(out ActiveItem activeItem))
         {
